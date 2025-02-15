@@ -3,7 +3,7 @@ package br.com.api.routes;
 import br.com.api.routes.Rotas;
 
 import br.com.api.service.ServicoUsuario;
-
+import br.com.api.service.ServicoVacina;
 import spark.Spark; 
 
 public class Rotas {
@@ -21,6 +21,11 @@ public class Rotas {
         //onde XXXX e o metodo http (post, get, put ou delete), yyyyyy a url que define a rota
         //e ZZZZZ o metodo a ser executado quando a rota for acionada
         //Spark.XXXXX("YYYYYYY", ZZZZZ);
+
+        Spark.get("/vacinas/consultar", ServicoVacina.consultarTodasVacinas());
+        Spark.get("/vacinas/consultar/faixa_etaria/:faixa", ServicoVacina.consultarVacinaPorFaixaEtaria());
+        Spark.get("/vacinas/consultar/idade_maior/:meses", ServicoVacina.consultarVacinaDisponivelAcimaIdade()); 
+        Spark.get("/vacinas/consultar/nao_aplivacaveis/paciente/:id", ServicoVacina.consultarVacinaNaoAplicavel());
     }
     
     //Para criar novos metodos basta utilizar o esqueleto abaixo
@@ -42,6 +47,5 @@ public class Rotas {
     //             return SSSS;
     //         }
     //     };
-    // }
-   
+    // }  
 }
