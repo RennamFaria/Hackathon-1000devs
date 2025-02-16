@@ -23,7 +23,7 @@ public class Paciente {
         this.dataNascimento = dataNascimento; 
     }
 
-    public enum Sexo { 
+    public static enum Sexo { 
         M, F; 
     }
 
