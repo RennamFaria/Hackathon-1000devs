@@ -17,7 +17,7 @@ public class DAOPaciente {
     public static int adicionarPaciente(Paciente paciente) throws SQLException{
 
         
-        String sql = "INSERT * INTO paciente (nome, cpf, sexo, dataNascimento) VALUES (?, ?, ?,? ) "; // faz a consulta sql no banco
+        String sql = "INSERT INTO paciente (nome, cpf, sexo, dataNascimento) VALUES (?, ?, ?,? ) "; // faz a consulta sql no banco
 
        try (PreparedStatement comando = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
         //agora adiciona os valores nome, cpf, sexo e data de nascimento no lugar de ? na query 
