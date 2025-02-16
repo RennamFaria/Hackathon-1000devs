@@ -1,6 +1,5 @@
 package br.com.api.dao;
 
-import br.com.api.model.Vacina;
 import br.com.api.model.Vacina.PublicoAlvo;
 import br.com.api.model.joins.VacinaDoseJoin;
 

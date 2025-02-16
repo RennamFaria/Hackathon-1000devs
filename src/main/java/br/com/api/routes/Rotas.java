@@ -1,7 +1,7 @@
 package br.com.api.routes;
 
 import br.com.api.routes.Rotas;
-
+import br.com.api.service.ServicoImunizacao;
 import br.com.api.service.ServicoUsuario;
 import br.com.api.service.ServicoVacina;
 import spark.Spark; 
@@ -26,6 +26,16 @@ public class Rotas {
         Spark.get("/vacinas/consultar/faixa_etaria/:faixa", ServicoVacina.consultarVacinaPorFaixaEtaria());
         Spark.get("/vacinas/consultar/idade_maior/:meses", ServicoVacina.consultarVacinaDisponivelAcimaIdade()); 
         Spark.get("/vacinas/consultar/nao_aplivacaveis/paciente/:id", ServicoVacina.consultarVacinaNaoAplicavel());
+
+        Spark.post("/imunizacao/inserir", ServicoImunizacao.cadastrarImunizacao());
+        Spark.put("/imunizacao/alterar/:id", ServicoImunizacao.alterarImunizacao());
+        Spark.delete("/imunizacao/excluir/:id", ServicoImunizacao.excluirImunizacaoPorID());
+        Spark.delete("/imunizacao/excluir/paciente/:id", ServicoImunizacao.excluirTodasImunizacaoPaciente());
+        Spark.get("/imunizacao/consultar", ServicoImunizacao.consultarTodasImunizacao());
+        Spark.get("/imunizacao/consultar/:id", ServicoImunizacao.consultarImunizacaoPorID());
+        Spark.get("/imunizacao/consultar/paciente/:id", ServicoImunizacao.consultarTodasImunizacaoPorIDPaciente());
+        Spark.get("/imunizacao/consultar/paciente/:id/aplicacao/:dt_ini/:dt_fim", ServicoImunizacao.consultarTodasImunizacaoPorIDPacienteEntreDatas());
+        
     }
     
     //Para criar novos metodos basta utilizar o esqueleto abaixo
