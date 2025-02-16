@@ -1,6 +1,5 @@
 package br.com.api.service;
 import java.time.LocalDate;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import br.com.api.dao.DAOPaciente;
 import br.com.api.model.Paciente.Sexo;
 import br.com.api.model.Paciente;
