@@ -5,8 +5,10 @@ import spark.Spark;
 import java.sql.Connection;
 
 import br.com.api.config.Conexao;
-
+import br.com.api.dao.DAOImunizacao;
+import br.com.api.dao.DAOPaciente;
 import br.com.api.dao.DAOUsuario;
+import br.com.api.dao.DAOVacina;
 import br.com.api.routes.Rotas;
 
 import spark.Request;
@@ -24,8 +26,11 @@ public class Main {
             //Atribui a conexao criada, no atributo da classe DAOUsuario
             DAOUsuario.conexao = conexao;
             //TO DO: atribuir a mesma conexao nas demais classes DAO caso existam
-
+            DAOVacina.conexao = conexao;
+            DAOPaciente.conexao = conexao;
+            DAOImunizacao.conexao = conexao;
             Spark.port(8080);
+
 
             //Habilitar CORS
             //Assista https://www.youtube.com/watch?v=1V1qkh6K8Gg para entender o que é
