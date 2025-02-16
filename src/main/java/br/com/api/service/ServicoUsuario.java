@@ -172,7 +172,7 @@ public class ServicoUsuario {
                     //se nao forma maior que 0 o usuario nao existia no banco de dados
                     } else {
                         response.status(209); //id não encontrado
-                        return "{\"message\": \"Usuário com id " + id + " foi encontrado no banco de dados.\"}" ;
+                        return "{\"message\": \"Usuário com id " + id + " não foi encontrado no banco de dados.\"}" ;
                     }
                 } catch (NumberFormatException e) { //alguma excecao na conversado do id fornecido na URL
                     response.status(400);
