@@ -86,7 +86,9 @@ public class ServicoPaciente {
             public Object handle(Request request, Response response) throws Exception{
                 try {
                  //extrai os parametros do boddy da requisicao http  
-                //o metódo queryParams recebe apenas string, então o que não for String tem que ser convertido 
+                //o metódo queryParams recebe apenas string, então o que não for String tem que ser convertido
+
+                int id = Integer.parseInt(request.params(":id")); 
                 String nome = request.queryParams("nome");
                 String cpf = request.queryParams("cpf");
                 String sexoStr = request.queryParams("sexo"); // Extrai o valor como String
@@ -95,18 +97,18 @@ public class ServicoPaciente {
                 LocalDate data_nascimento = LocalDate.parse(data_nascimentoStr); // Converte a String para LocalDate
 
                 //executa o metodo de adicionar o contato no array list
-                Paciente paciente = new Paciente(nome, cpf, sexo, data_nascimento);
+                Paciente paciente = new Paciente(id, nome, cpf, sexo, data_nascimento);
 
                 int qtdeLinhasAlteradas = DAOPaciente.atualizarPaciente(paciente);
 
                     //se a quantidade de linhas for maior que 0 significa que o usuario existia no banco de dados. Rogério optou por verificar o id da exclusao no serviço, não no DAO.
                     if (qtdeLinhasAlteradas > 0) {
                         response.status(200); //exclusão com sucesso
-                        return "{\"message\": \"Paciente " + paciente + " foi alterado(a) com sucesso.\"}" ;
+                        return "{\"message\": \"Paciente " + id + " foi alterado(a) com sucesso.\"}" ;
                     //se nao forma maior que 0 o usuario nao existia no banco de dados
                     } else {
                         response.status(209); //id não encontrado
-                        return "{\"message\": \"Paciente " + paciente + " não foi encontrado no banco de dados.\"}" ;
+                        return "{\"message\": \"Paciente " + id+ " não foi encontrado no banco de dados.\"}" ;
                     }
                 } catch (NumberFormatException e) { //algum erro de conversao do id passado na url
                     response.status(400);
