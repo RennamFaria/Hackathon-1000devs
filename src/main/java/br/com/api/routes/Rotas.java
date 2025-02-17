@@ -18,9 +18,9 @@ public class Rotas {
         Spark.delete("/excluir/:id", ServicoUsuario.excluirUsuario());
 
         //sparks para adicionar, excluir e atualizar pacientes
-        Spark.post("/paciente/adicionar", ServicoPaciente.cadastrarPaciente());
+        Spark.post("/paciente/cadastrar", ServicoPaciente.cadastrarPaciente());
         Spark.post("/paciente/excluir/:id", ServicoPaciente.excluirPaciente());
-        Spark.post("/paciente/atualizar/:id", ServicoPaciente.atualizarPaciente());
+        Spark.put("/paciente/atualizar/:id", ServicoPaciente.atualizarPaciente());
         
         //TO DO: Para criar novas rotas, basta adicionar novas linhas seguindo o padrao abaixo, 
         //onde XXXX e o metodo http (post, get, put ou delete), yyyyyy a url que define a rota

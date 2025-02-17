@@ -6,21 +6,21 @@ public class Paciente {
     private String nome;
     private String cpf; 
     private Sexo sexo; //é construído assim porque é um ENUM
-    private LocalDate dataNascimento; 
+    private LocalDate data_nascimento; 
 
-    public Paciente(int id, String nome, String cpf, Sexo sexo, LocalDate dataNascimento) {
+    public Paciente(int id, String nome, String cpf, Sexo sexo, LocalDate data_nascimento) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf; 
         this.sexo = sexo; 
-        this.dataNascimento = dataNascimento; 
+        this.data_nascimento = data_nascimento; 
     }
     
-    public Paciente(String nome, String cpf, Sexo sexo, LocalDate dataNascimento) {
+    public Paciente(String nome, String cpf, Sexo sexo, LocalDate data_nascimento) {
         this.nome = nome; 
         this.cpf = cpf; 
         this.sexo = sexo; 
-        this.dataNascimento = dataNascimento; 
+        this.data_nascimento = data_nascimento; 
     }
 
     public static enum Sexo { 
@@ -59,13 +59,13 @@ public class Paciente {
         this.sexo = sexo;
     }
 
-    public LocalDate getDataNascimento(){
-        return dataNascimento;
+    public LocalDate getdata_nascimento(){
+        return data_nascimento;
         
     }
 
-    public void setDataNascimento (LocalDate dataNascimento){
-        this.dataNascimento = dataNascimento; 
+    public void setdata_nascimento (LocalDate data_nascimento){
+        this.data_nascimento = data_nascimento; 
     }
      
 }

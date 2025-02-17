@@ -17,7 +17,7 @@ public class DAOPaciente {
     public static int adicionarPaciente(Paciente paciente) throws SQLException{
 
         
-        String sql = "INSERT INTO paciente (nome, cpf, sexo, dataNascimento) VALUES (?, ?, ?,? ) "; // faz a consulta sql no banco
+        String sql = "INSERT INTO paciente (nome, cpf, sexo, data_nascimento) VALUES (?, ?, ?,? ) "; // faz a consulta sql no banco
 
        try (PreparedStatement comando = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
         //agora adiciona os valores nome, cpf, sexo e data de nascimento no lugar de ? na query 
@@ -25,7 +25,7 @@ public class DAOPaciente {
         comando.setString(2, paciente.getCpf());
         comando.setString(3, paciente.getSexo().name()); // Sexo (ENUM convertido para String)(name é um metódo do ENUM que não pode ser sobrescrito, ele é o que é)
         // Converte LocalDate para java.sql.Date
-        LocalDate localDate = paciente.getDataNascimento();
+        LocalDate localDate = paciente.getdata_nascimento();
         Date sqlDate = Date.valueOf(localDate); // Converte LocalDate para java.sql.Date
         comando.setDate(4, sqlDate);
 
@@ -77,14 +77,14 @@ public class DAOPaciente {
             //Retorno: Tipo int. Retorna o número de linhas afetadas
         
             //definição da query 
-           String sql = "UPDATE paciente SET nome = ?, cpf = ?, sexo = ?, dataNascimento = ? WHERE id = ?";
+           String sql = "UPDATE paciente SET nome = ?, cpf = ?, sexo = ?, data_nascimento = ? WHERE id = ?";
 
            try (PreparedStatement comando = conexao.prepareStatement(sql)) {
             comando.setString(1, paciente.getNome());
             comando.setString(2, paciente.getCpf());
             comando.setString(3, paciente.getSexo().name()); // Sexo (ENUM convertido para String)(name é um metódo do ENUM que não pode ser sobrescrito, ele é o que é)
             // Converte LocalDate para java.sql.Date
-            LocalDate localDate = paciente.getDataNascimento();
+            LocalDate localDate = paciente.getdata_nascimento();
             Date sqlDate = Date.valueOf(localDate); // Converte LocalDate para java.sql.Date
             comando.setDate(4, sqlDate);
             comando.setInt(5, paciente.getId());

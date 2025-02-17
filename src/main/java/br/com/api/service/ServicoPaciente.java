@@ -20,11 +20,11 @@ public class ServicoPaciente {
                 String cpf = request.queryParams("cpf");
                 String sexoStr = request.queryParams("sexo"); // Extrai o valor como String
                 Sexo sexo = Sexo.valueOf(sexoStr); // Converte a String para o enum
-                String dataNascimentoStr = request.queryParams("dataNascimento"); // Extrai o valor como String
-                LocalDate dataNascimento = LocalDate.parse(dataNascimentoStr); // Converte a String para LocalDate
+                String data_nascimentoStr = request.queryParams("data_nascimento"); // Extrai o valor como String
+                LocalDate data_nascimento = LocalDate.parse(data_nascimentoStr); // Converte a String para LocalDate
 
                 //executa o metodo de adicionar o contato no array list
-                Paciente paciente = new Paciente(nome, cpf, sexo, dataNascimento);
+                Paciente paciente = new Paciente(nome, cpf, sexo, data_nascimento);
 
                 try {
                     //passa o objeto para o DAO realizar a insercao no banco de dados
@@ -91,11 +91,11 @@ public class ServicoPaciente {
                 String cpf = request.queryParams("cpf");
                 String sexoStr = request.queryParams("sexo"); // Extrai o valor como String
                 Sexo sexo = Sexo.valueOf(sexoStr); // Converte a String para o enum
-                String dataNascimentoStr = request.queryParams("dataNascimento"); // Extrai o valor como String
-                LocalDate dataNascimento = LocalDate.parse(dataNascimentoStr); // Converte a String para LocalDate
+                String data_nascimentoStr = request.queryParams("data_nascimento"); // Extrai o valor como String
+                LocalDate data_nascimento = LocalDate.parse(data_nascimentoStr); // Converte a String para LocalDate
 
                 //executa o metodo de adicionar o contato no array list
-                Paciente paciente = new Paciente(nome, cpf, sexo, dataNascimento);
+                Paciente paciente = new Paciente(nome, cpf, sexo, data_nascimento);
 
                 int qtdeLinhasAlteradas = DAOPaciente.atualizarPaciente(paciente);
 
