@@ -3,18 +3,27 @@ package br.com.api.routes;
 import br.com.api.service.ServicoEstatisticas;
 import br.com.api.service.ServicoImunizacao;
 import br.com.api.service.ServicoVacina;
+import br.com.api.service.ServicoPaciente;
+
 import spark.Spark; 
 
 public class Rotas {
     
     public static void processarRotas(){
         //cadastra no spark quais rotas existem e quais metodos 
-        //devem ser executados quando cada rota for requisitado
+        //devem ser executados quando cada rota for requisitada
+
         
         //TO DO: Para criar novas rotas, basta adicionar novas linhas seguindo o padrao abaixo, 
         //onde XXXX e o metodo http (post, get, put ou delete), yyyyyy a url que define a rota
         //e ZZZZZ o metodo a ser executado quando a rota for acionada
         //Spark.XXXXX("YYYYYYY", ZZZZZ);
+
+        //PACIENTE
+        Spark.post("/paciente/cadastrar", ServicoPaciente.cadastrarPaciente());
+        Spark.delete("/paciente/excluir/:id", ServicoPaciente.excluirPaciente());
+        Spark.put("/paciente/atualizar/:id", ServicoPaciente.atualizarPaciente());
+
 
         //VACINA
         Spark.get("/vacinas/consultar", ServicoVacina.consultarTodasVacinas());
