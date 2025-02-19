@@ -30,7 +30,7 @@ public class DAOEstatistica {
         JOIN vacina v ON d.id_vacina = v.id 
         WHERE d.idade_recomendada_aplicacao = TIMESTAMPDIFF(MONTH, 
             (SELECT data_nascimento FROM paciente WHERE id = ?), CURDATE()) + 1
-    """;
+        """;
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, pacienteId);
             try (ResultSet rs = stmt.executeQuery()) {
@@ -48,7 +48,7 @@ public class DAOEstatistica {
         WHERE d.idade_recomendada_aplicacao <= TIMESTAMPDIFF(MONTH,\s
             (SELECT data_nascimento FROM paciente WHERE id = ?), CURDATE())\s
         AND d.id NOT IN (SELECT id_dose FROM imunizacoes WHERE id_paciente = ?)
-   \s""";
+        \s""";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, pacienteId);
             stmt.setInt(2, pacienteId);
@@ -76,7 +76,7 @@ public class DAOEstatistica {
         WHERE v.limite_aplicacao IS NOT NULL 
         AND v.limite_aplicacao < TIMESTAMPDIFF(MONTH, 
             (SELECT data_nascimento FROM paciente WHERE id = ?), CURDATE())
-    """;
+        """;
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, pacienteId);
             try (ResultSet rs = stmt.executeQuery()) {
@@ -85,5 +85,5 @@ public class DAOEstatistica {
         }
     }
 
-
+    
 }
