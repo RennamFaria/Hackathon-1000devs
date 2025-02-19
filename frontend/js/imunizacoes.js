@@ -72,7 +72,7 @@ export const imunizacoesModule = {
     },
 
     renderizarTabela(imunizacoes) {
-        const tbody = document.getElementById('patientTable');
+        const tbody = document.getElementById('resultTable-imunizacao');
         tbody.innerHTML = imunizacoes.map(imunizacao => `
             <tr>
                 <td>${imunizacao.nome}</td>
@@ -103,7 +103,7 @@ export const imunizacoesModule = {
 // Inicialização
 document.addEventListener('DOMContentLoaded', () => {
     // Verifica se está na página de listagem
-    if (document.getElementById('dadosUsuarios')) {
+    if (document.getElementById('resultTable-imunizacao')) {
         imunizacoesModule.carregarImunizacoes();
     }
 

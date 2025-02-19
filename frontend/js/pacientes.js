@@ -1,21 +1,10 @@
-import { apiBase, utils } from './apiHandlers/api.js';
+import { apiBase, utils } from './api.js';
 
-const TABLE = 'paciente';
+const TABLE = 'cadastro';
 
 export const pacientesModule = {
     async carregarPacientes() {
         const ENDPOINT = 'consultar';
-
-        try {
-            const pacientes = await apiBase.listar(TABLE, ENDPOINT);
-            this.renderizarTabela(pacientes);
-        } catch (error) {
-            utils.mostrarMensagem('Erro', error.message);
-        }
-    },
-
-    async carregarPacientesPorId() {        // terminar
-        const ENDPOINT = 'consultar/${id}';
 
         try {
             const pacientes = await apiBase.listar(TABLE, ENDPOINT);
@@ -55,7 +44,7 @@ export const pacientesModule = {
     },
 
     async atualizarPaciente(event) {
-        const ENDPOINT = 'cadastrar';       //atualizar
+        const ENDPOINT = 'cadastrar';
 
         event.preventDefault();
         const id = document.getElementById('id').value;

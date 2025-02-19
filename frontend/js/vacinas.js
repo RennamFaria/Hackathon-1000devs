@@ -68,7 +68,7 @@ export const vacinasModule = {
     },
 
     renderizarTabela(vacinas) {
-        const tbody = document.getElementById('patientTable');
+        const tbody = document.getElementById('resultTable-vacina');
 
         // Imprime valor na tela
         // Se vier vazio ou ''. Será formatado para sair como desejado
@@ -89,7 +89,7 @@ export const vacinasModule = {
 document.addEventListener('DOMContentLoaded', () => {
     const searchButton = document.getElementById('searchButton');
     // Verifica se está na página de listagem
-    if (document.getElementById('patientTable')) {
+    if (document.getElementById('resultTable-vacina')) {
         vacinasModule.carregarVacinas();
     }
 
