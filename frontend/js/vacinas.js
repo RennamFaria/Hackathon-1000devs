@@ -1,5 +1,5 @@
-import { apiBase, utils } from './api.js';
-import { apiVacina } from './apiVacinas.js';
+import { apiBase, utils } from './apiHandlers/api.js';
+import { apiVacina } from './apiHandlers/apiVacinas.js';
 
 const TABLE = 'vacinas';
 

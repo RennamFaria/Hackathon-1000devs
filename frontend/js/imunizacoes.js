@@ -1,4 +1,4 @@
-import { apiBase, utils } from './api.js';
+import { apiBase, utils } from './apiHandlers/api.js';
 
 const TABLE = 'imunizacao';
 
