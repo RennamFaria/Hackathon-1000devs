@@ -14,6 +14,7 @@ export const imunizacoesModule = {
         }
     },
 
+    //      /imunizacao/inserir
     async cadastrarImunizacao(event) {
         const ENDPOINT = 'inserir';
 
@@ -28,21 +29,8 @@ export const imunizacoesModule = {
             utils.mostrarMensagem('Erro', error.message);
         }
     },
-
-    async carregarImunizacao() {
-        const ENDPOINT = 'consultar';
-
-        const id = utils.obterParametroUrl('id');
-        if (!id) return;
-
-        try {
-            const imunizacao = await apiBase.buscarPorId(TABLE, ENDPOINT, id);
-            this.preencherFormulario(imunizacao);
-        } catch (error) {
-            utils.mostrarMensagem('Erro', error.message);
-        }
-    },
-
+    
+    //   /imunizacao/alterar/:id
     async atualizarImunizacao(event) {
         const ENDPOINT = 'cadastrar';
 
@@ -57,6 +45,7 @@ export const imunizacoesModule = {
         }
     },
 
+    //    /imunizacao/excluir/:id
     async excluirImunizacao(id) {
         const ENDPOINT = 'excluir';
 
@@ -70,6 +59,83 @@ export const imunizacoesModule = {
             utils.mostrarMensagem('Erro', error.message);
         }
     },
+
+    //    /imunizacao/excluir/paciente/:id
+    async excluirImunizacaoPorPaciente(id) {
+        const ENDPOINT = 'excluir';
+
+        if (!confirm('Deseja realmente excluir este imunizacao?')) return;
+        
+        try {
+            await apiBase.excluir(TABLE, ENDPOINT, id);
+            utils.mostrarMensagem('Sucesso', 'Imunizacao excluído com sucesso!');
+            await this.carregarImunizacoes();
+        } catch (error) {
+            utils.mostrarMensagem('Erro', error.message);
+        }
+    },
+
+    //   /imunizacao/consultar
+    async carregarImunizacao() {
+        const ENDPOINT = 'consultar';
+
+        const id = utils.obterParametroUrl('id');
+        if (!id) return;
+
+        try {
+            const imunizacao = await apiBase.buscarPorId(TABLE, ENDPOINT, id);
+            this.preencherFormulario(imunizacao);
+        } catch (error) {
+            utils.mostrarMensagem('Erro', error.message);
+        }
+    },
+
+    //   /imunizacao/consultar/:id
+    async carregarImunizacao() {
+        const ENDPOINT = 'consultar';
+
+        const id = utils.obterParametroUrl('id');
+        if (!id) return;
+
+        try {
+            const imunizacao = await apiBase.buscarPorId(TABLE, ENDPOINT, id);
+            this.preencherFormulario(imunizacao);
+        } catch (error) {
+            utils.mostrarMensagem('Erro', error.message);
+        }
+    },
+
+    //    /imunizacao/consultar/paciente/:id
+    async carregarImunizacao() {
+        const ENDPOINT = 'consultar';
+
+        const id = utils.obterParametroUrl('id');
+        if (!id) return;
+
+        try {
+            const imunizacao = await apiBase.buscarPorId(TABLE, ENDPOINT, id);
+            this.preencherFormulario(imunizacao);
+        } catch (error) {
+            utils.mostrarMensagem('Erro', error.message);
+        }
+    },
+
+    //      imunizacao/consultar/paciente/:id/aplicacao/:dt_ini/:dt_fim
+    async carregarImunizacao() {
+        const ENDPOINT = 'consultar';
+
+        const id = utils.obterParametroUrl('id');
+        if (!id) return;
+
+        try {
+            const imunizacao = await apiBase.buscarPorId(TABLE, ENDPOINT, id);
+            this.preencherFormulario(imunizacao);
+        } catch (error) {
+            utils.mostrarMensagem('Erro', error.message);
+        }
+    },
+
+
 
     renderizarTabela(imunizacoes) {
         const tbody = document.getElementById('resultTable-imunizacao');
