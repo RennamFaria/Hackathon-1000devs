@@ -75,12 +75,16 @@ export const imunizacoesModule = {
         const tbody = document.getElementById('resultTable-imunizacao');
         tbody.innerHTML = imunizacoes.map(imunizacao => `
             <tr>
-                <td>${imunizacao.nome}</td>
-                <td>${imunizacao.cpf}</td>
-                <td>${imunizacao.sexo}</td>
-                <td>${imunizacao.data_nascimento}</td>
+                <td>${imunizacao.idImunizacao}</td>
+                <td>${imunizacao.nomePaciente}</td>
+                <td>${imunizacao.nomeVacina}</td>
+                <td>${imunizacao.dataAplicacao}</td>
+                <td>${imunizacao.fabricante}</td>
+                <td>${imunizacao.lote}</td>
+                <td>${imunizacao.localAplicacao}</td>
+                <td>${imunizacao.profissionalAplicador}</td>
                 <td>
-                    <a href="/frontend/cadastro/editar/imunizacao.html?id=${imunizacao.id}">
+                    <a href="/frontend/imunizacao/atualizar/atualizar.html?id=${imunizacao.id}">
                         <button class="w3-button w3-green w3-round">Editar</button>
                     </a>
                     <button class="w3-button w3-red w3-round" 
