@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imunização</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+        .table-container {
+            max-width: 9000px;
+            margin:auto;
+            padding-top: 20px;
+
+             h2 {
+    
+    padding-right: 2000px;
+}
+            
+                         
+        }
+    </style>
+</head>
+
+<body>
+    <div class="w3-bar w3-black">
+        <a href="#" class="w3-bar-item w3-button w3-green w3-mobile">Home</a>
+        <a href="#" class="w3-bar-item w3-button w3-black w3-mobile">Pacientes</a>
+        <a href="#" class="w3-bar-item w3-button w3-black w3-mobile">Imunizações</a>
+        <a href="#" class="w3-bar-item w3-button w3-black w3-mobile">Vacinas</a>
+    </div>
+
+    <div class="w3-container table-container">
+        <h2 class="w3-center">Imunização</h2>
+        <style>
+         h2 {
+    text-align: left;
+    padding-left: 5px; /* Adiciona espaço interno à esquerda */
+}
+
+        </style>
+
+        <div class="w3-bar w3-margin-bottom">
+            <button class="w3-button w3-green w3-margin-right">Cadastrar</button>
+            <input type="text" id="search" class="w3-input w3-border" placeholder="Pesquisar paciente...">
+        </div>
+
+        <div class="w3-responsive">
+            <table class="w3-table w3-bordered w3-striped w3-hoverable">
+                <thead class="w3-dark-grey">
+                    <tr>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>Sexo</th>
+                        <th>Data de Nascimento</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="patientTable"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const pacientes = [
+            { nome: "José Pereira da Silva", cpf: "123.456.789-11", sexo: "Masculino", dataCadastro: "10/09/2024" },
+            { nome: "Maria Souza Pereira", cpf: "123.456.789-00", sexo: "Feminino", dataCadastro: "01/01/2025" }
+        ];
+
+        function carregarPacientes() {
+            const tabela = document.getElementById('patientTable');
+            tabela.innerHTML = "";
+
+            pacientes.forEach(paciente => {
+                const row = `<tr>
+                    <td>${paciente.nome}</td>
+                    <td>${paciente.cpf}</td>
+                    <td>${paciente.sexo}</td>
+                    <td>${paciente.dataCadastro}</td>
+                    <td>
+                        <button class="w3-button w3-blue w3-small">Imunizações</button>
+                        <button class="w3-button w3-yellow w3-small">Atualizar</button>
+                        <button class="w3-button w3-red w3-small">Excluir</button>
+                    </td>
+                </tr>`;
+                tabela.innerHTML += row;
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", carregarPacientes);
+
+        document.getElementById('search').addEventListener('input', function () {
+            let filter = this.value.toLowerCase();
+            let rows = document.querySelectorAll("#patientTable tr");
+
+            rows.forEach(row => {
+                let name = row.cells[0].textContent.toLowerCase();
+                row.style.display = name.includes(filter) ? "" : "none";
+            });
+        });
+    </script>
+</body>
+
+</html>
