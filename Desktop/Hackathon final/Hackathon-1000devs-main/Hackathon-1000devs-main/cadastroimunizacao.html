@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Imunização</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <style>
+        body {
+            background-color: #f4f4f4;
+        }
+
+        /* Ajuste do container principal */
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Ajuste dos inputs */
+        .w3-input {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        /* Botão cadastrar */
+        .btn-cadastrar {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-cadastrar:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Barra de Navegação -->
+    <div class="w3-bar w3-black">
+        <a href="#" class="w3-bar-item w3-button w3-green w3-mobile">Home</a>
+        <a href="#" class="w3-bar-item w3-button w3-black w3-mobile">Pacientes</a>
+        <a href="#" class="w3-bar-item w3-button w3-black w3-mobile">Imunizações</a>
+        <a href="#" class="w3-bar-item w3-button w3-black w3-mobile">Vacinas</a>
+        
+    </div>
+
+    <!-- Conteúdo -->
+    <div class="container w3-card">
+        <h2 class="w3-text-black">Cadastro de Imunização</h2>
+        <form class="w3-container">
+            <div class="w3-row-padding">
+                <div class="w3-half">
+                    <label>Nome do Paciente:</label>
+                    <input class="w3-input w3-border" type="text" placeholder="Digite o nome completo">
+                </div>
+                <div class="w3-half">
+                    <label>Dose:</label>
+                    <input class="w3-input w3-border" type="text" placeholder="id">
+                </div>
+            </div>
+
+            <div class="w3-row-padding">
+                <div class="w3-half">
+                    <label>Data Da Aplicação:</label>
+                    <input class="w3-input w3-border" type="text" placeholder="mm/dd/yyyy">
+                </div>
+                <div class="w3-half">
+                    <label>Vabricante:</label>
+                    <input class="w3-input w3-border" type="text" placeholder="nome do fabricante">
+                </div>
+            </div>
+
+            <div class="w3-row-padding">
+                <div class="w3-half">
+                    <label>Lote:</label>
+                    <input class="w3-input w3-border" type="text">
+                </div>
+                <div class="w3-half">
+                    <label>Local de Aplicação:</label>
+                    <input class="w3-input w3-border" type="text" placeholder="UBS">
+                </div>
+            </div>
+
+            <div class="w3-row-padding">
+                <div class="w3-half">
+                    <label>Profissional aplicador:</label>
+                    <input class="w3-input w3-border" type="text">
+                </div>
+                
+            </div>
+
+            <div class="w3-padding">
+                <button class="w3-button w3-green btn-cadastrar">Cadastrar</button>
+            </div>
+        </form>
+    </div>
+
+</body>
+
+</html>
