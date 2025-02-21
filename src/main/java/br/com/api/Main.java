@@ -5,7 +5,7 @@ import spark.Spark;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-
+import br.com.api.config.*;
 import br.com.api.config.Conexao;
 import br.com.api.routes.Rotas;
 
@@ -31,7 +31,9 @@ public class Main {
 
             Spark.port(8080);
 
+            Spark.staticFiles.location("/public");
 
+            //Habilitar CORs
             //Habilitar CORS
             //Assista https://www.youtube.com/watch?v=1V1qkh6K8Gg para entender o que é
             Spark.options("/*", new Route() {
@@ -60,6 +62,12 @@ public class Main {
                     respostaHttp.header("Access-Control-Allow-Methods", "OPTIONS, GET, POST, PUT, DELETE");
                     respostaHttp.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
                 }
+            });
+
+
+            Spark.get("/", (req, res) -> {
+                res.redirect("/index.html"); // Redireciona para o index.html
+                return null;
             });
 
             //executa o metodo para cadastrar as rotas no spark
