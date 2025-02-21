@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.api.model.Paciente;
+import br.com.api.model.Paciente.Sexo;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
@@ -27,7 +29,7 @@ public class DAOPaciente {
             comando.setString(2, paciente.getCpf());
             comando.setString(3, paciente.getSexo().name()); // Sexo (ENUM convertido para String)(name é um metódo do ENUM que não pode ser sobrescrito, ele é o que é)
             // Converte LocalDate para java.sql.Date
-            LocalDate localDate = paciente.getdata_nascimento();
+            LocalDate localDate = LocalDate.parse(paciente.getdata_nascimento());
             Date sqlDate = Date.valueOf(localDate); // Converte LocalDate para java.sql.Date
             comando.setDate(4, sqlDate);
 
@@ -89,7 +91,7 @@ public class DAOPaciente {
         comando.setString(2, paciente.getCpf());
         comando.setString(3, paciente.getSexo().name()); // Sexo (ENUM convertido para String)(name é um metódo do ENUM que não pode ser sobrescrito, ele é o que é)
         // Converte LocalDate para java.sql.Date
-        LocalDate localDate = paciente.getdata_nascimento();
+        LocalDate localDate = LocalDate.parse(paciente.getdata_nascimento());
         Date sqlDate = Date.valueOf(localDate); // Converte LocalDate para java.sql.Date
         comando.setDate(4, sqlDate);
         comando.setInt(5, paciente.getId());
@@ -120,6 +122,65 @@ public class DAOPaciente {
             }
         }
         return null; // Retorna null se não encontrar o paciente
+    }
+
+    // 🔹 Método para buscar paciente por ID
+    public static Paciente buscarPorId(int idPaciente) throws SQLException {
+        Paciente paciente = null;
+        
+        String sql = "SELECT * FROM paciente WHERE id = ?";
+    
+        try (PreparedStatement comando = conexao.prepareStatement(sql)) {
+            comando.setInt(1, idPaciente);
+            ResultSet resultado = comando.executeQuery();
+
+            if (resultado.next()) {
+                
+            // Converter sexo para ENUM
+            String sexoString = resultado.getString("sexo");
+            Sexo sexo = Sexo.valueOf(sexoString.toUpperCase());
+                
+                paciente = new Paciente(
+                    resultado.getInt("id"), 
+                    resultado.getString("nome"), 
+                    resultado.getString("cpf"), 
+                    sexo,
+                    resultado.getDate("data_nascimento").toLocalDate());
+                
+                return paciente;
+            }
+        }
+        return null; // Retorna null se não encontrar o paciente
+    }
+
+    // 🔹 Método para buscar todos os pacientes
+    public static List<Paciente> buscarTodos() throws SQLException {
+        String sql = "SELECT * FROM paciente";
+        List<Paciente> lista = new ArrayList<Paciente>();
+
+        try (PreparedStatement comando = conexao.prepareStatement(sql);
+            ResultSet resultado = comando.executeQuery()) {
+
+            while (resultado.next()) {
+                
+                // Converter sexo para ENUM
+                String sexoString = resultado.getString("sexo");
+                Sexo sexo = Sexo.valueOf(sexoString.toUpperCase());
+                
+                //cria um novo objeto Vacina_Dose
+                Paciente novopaciente = new Paciente(
+                    resultado.getInt("id"), 
+                    resultado.getString("nome"), 
+                    resultado.getString("cpf"), 
+                    sexo,
+                    resultado.getDate("data_nascimento").toLocalDate());
+                
+                //adiciona o objeto usuario no array list
+                lista.add(novopaciente);
+            }
+        }
+        
+        return lista;
     }
 }
     
