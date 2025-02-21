@@ -2,6 +2,9 @@ package br.com.api.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.api.model.Paciente;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

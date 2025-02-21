@@ -3,6 +3,7 @@ import { apiBase, utils } from './apiHandlers/api.js';
 const TABLE = 'paciente';
 
 export const pacientesModule = {
+    // Ainda faltando
     async carregarPacientes() {
         const ENDPOINT = 'consultar';
 
@@ -16,6 +17,7 @@ export const pacientesModule = {
         }
     },
 
+    // Ainda falta tela
     async cadastrarPaciente(event) {
         const ENDPOINT = 'inserir';
 
@@ -76,10 +78,10 @@ export const pacientesModule = {
         const tbody = document.getElementById('patientTable');
         tbody.innerHTML = pacientes.map(paciente => `
             <tr>
-                <td>${paciente.nome}</td>
-                <td>${paciente.cpf}</td>
-                <td>${paciente.sexo}</td>
-                <td>${paciente.data_nascimento}</td>
+                <td>${paciente.nome && paciente.nome !== '' ? paciente.nome : 'Não informado'}</td>
+                <td>${paciente.cpf && paciente.cpf !== '' ? paciente.cpf : '---'}</td>
+                <td>${paciente.sexo && paciente.sexo !== '' ? paciente.sexo : 'Não informado'}</td>
+                <td>${utils.formatarData(paciente.data_nascimento)}</td>
                 <td>
                     <a href="/frontend/cadastro/editar/paciente.html?id=${paciente.id}">
                         <button class="w3-button w3-green w3-round">Editar</button>
