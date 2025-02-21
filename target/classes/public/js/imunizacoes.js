@@ -87,11 +87,11 @@ export const imunizacoesModule = {
         }
     },
 
-    // Essa funcao sera chamada 
+    // Essa funcao sera chamada pela tela Paciente
     async excluirImunizacaoPorIdPaciente(id) {
         const ENDPOINT = 'excluir';
 
-        if (!confirm('Deseja realmente excluir este imunizacao?')) return;
+        if (!confirm('Deseja realmente excluir TODAS imunizações do Paciente?\n\nSim - OK\nNão - Cancelar')) return;
         
         try {
             await apiBase.excluir(TABLE, ENDPOINT, id);
@@ -130,12 +130,16 @@ export const imunizacoesModule = {
     },
 
     renderizarTabela(imunizacoes) {
-        const tbody = document.getElementById('resultTable-imunizacao');
+        const tbody = document.getElementById(
+            window.location.href.includes('porPaciente') ? 
+            'resultTable-imunizacaoPaciente' : 
+            'resultTable-imunizacao'
+        );
 
         const imunizacoesArray = Array.isArray(imunizacoes) ? imunizacoes : [imunizacoes];
 
         tbody.innerHTML = imunizacoesArray.map(imunizacao => `
-            <tr>
+            <tr class = "border border-2 border-dark rounded">
                 <td>${imunizacao.idImunizacao && imunizacao.idImunizacao !== '' ? imunizacao.idImunizacao : '---'}</td>
                 <td>${imunizacao.nomePaciente && imunizacao.nomePaciente !== '' ? imunizacao.nomePaciente : 'Não informado'}</td>
                 <td>${imunizacao.nomeVacina && imunizacao.nomeVacina !== '' ? imunizacao.nomeVacina : 'Não especificada'}</td>
@@ -168,29 +172,47 @@ export const imunizacoesModule = {
 
 // Inicialização
 document.addEventListener('DOMContentLoaded', () => {
-    const typeSearch = document.getElementById('type-search');
-    const additionalSearchContainer = document.getElementById('additional-search-container');
-    const searchButton = document.getElementById('searchButton');
+    // Executa esse codigo apenas para a pagina Imunizacao e nao ImunizacaoPaciente
+    if (document.getElementById('type-search')) {
+        const typeSearch = document.getElementById('type-search');
+        const additionalSearchContainer = document.getElementById('additional-search-container');
+        const searchButton = document.getElementById('searchButton');
 
-    function createDateInputs() {
-        return `
-            <input type="date" id="intervalo-inicial" class="form-control" placeholder="Data Inicial">
-            <input type="date" id="intervalo-final" class="form-control" placeholder="Data Final">
-        `;
-    }
-
-    // Cria as barras de pesquisa na opacao especifica
-    typeSearch.addEventListener('change', function() {
-        additionalSearchContainer.innerHTML = '';
-
-        if (this.value === 'idPaciente-IntervaloApl') {
-            additionalSearchContainer.innerHTML = createDateInputs();
+        function createDateInputs() {
+            return `
+                <input type="date" id="intervalo-inicial" class="form-control" placeholder="Data Inicial">
+                <input type="date" id="intervalo-final" class="form-control" placeholder="Data Final">
+            `;
         }
-    });
+
+        typeSearch.addEventListener('change', function() {
+            additionalSearchContainer.innerHTML = '';
+            if (this.value === 'idPaciente-IntervaloApl') {
+                additionalSearchContainer.innerHTML = createDateInputs();
+            }
+        });
+    }
     
     // Verifica se está na página de listagem
     if (document.getElementById('resultTable-imunizacao')) {
         imunizacoesModule.carregarImunizacoes();
+    }
+
+    if (document.getElementById('resultTable-imunizacaoPaciente')) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get('id');
+        const deleteAllButton = document.getElementById('searchButton');
+
+        if (id) {
+            imunizacoesModule.carregarImunizacaoPorIdPaciente(id);
+        }
+
+        if (deleteAllButton) {
+            deleteAllButton.addEventListener('click', () => {
+                
+                imunizacoesModule.excluirImunizacaoPorIdPaciente(id);
+            });
+        }
     }
 
     // Verifica o tipo de pesquisa e executa a funcao correta
