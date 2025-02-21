@@ -1,14 +1,12 @@
 package br.com.api;
 
+import br.com.api.dao.*;
 import spark.Spark;
 
 import java.sql.Connection;
-
+import java.sql.SQLException;
+import br.com.api.config.*;
 import br.com.api.config.Conexao;
-import br.com.api.dao.DAOImunizacao;
-import br.com.api.dao.DAOPaciente;
-import br.com.api.dao.DAOUsuario;
-import br.com.api.dao.DAOVacina;
 import br.com.api.routes.Rotas;
 
 import spark.Request;
@@ -17,21 +15,25 @@ import spark.Route;
 
 public class Main {
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
+
+
 
         try {
             //obtem uma conexao valida com o banco de dados
             Connection conexao = Conexao.getConexao(); 
 
             //Atribui a conexao criada, no atributo da classe DAOUsuario
-            DAOUsuario.conexao = conexao;
-            //TO DO: atribuir a mesma conexao nas demais classes DAO caso existam
+            DAOEstatistica.connection = conexao;
             DAOVacina.conexao = conexao;
             DAOPaciente.conexao = conexao;
             DAOImunizacao.conexao = conexao;
+
             Spark.port(8080);
 
+            Spark.staticFiles.location("/public");
 
+            //Habilitar CORs
             //Habilitar CORS
             //Assista https://www.youtube.com/watch?v=1V1qkh6K8Gg para entender o que é
             Spark.options("/*", new Route() {
@@ -62,10 +64,17 @@ public class Main {
                 }
             });
 
+
+            Spark.get("/", (req, res) -> {
+                res.redirect("/index.html"); // Redireciona para o index.html
+                return null;
+            });
+
             //executa o metodo para cadastrar as rotas no spark
             Rotas.processarRotas();
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 }

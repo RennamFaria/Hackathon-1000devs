@@ -28,7 +28,7 @@ public class ServicoImunizacao {
                 String localAplicacao = request.queryParams("localAplicacao");
                 String profissionalAplicador = request.queryParams("profissionalAplicador");
 
-                //executa o metodo de adicionar o imunizacao no array list
+                //executar o metodo de adicionar o imunizacao no array list
                 Imunizacao imunizacao = new Imunizacao(idPaciente, idDose, dataAplicacao, fabricante, lote, localAplicacao, profissionalAplicador);
 
                 try {
