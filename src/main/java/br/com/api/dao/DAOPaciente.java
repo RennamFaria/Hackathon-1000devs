@@ -63,7 +63,7 @@ public class DAOPaciente {
         try (PreparedStatement comando = conexao.prepareStatement(sql)) {
             //substitui a ? pelo id do paciente pra realizar a exclusao
             comando.setInt(1,id);
- 
+
             //executa a consulta e armazena o resultado de linhas afetadas na váriavel, serve para verificação de exclusao. 
 
             int qtdeLinhasExcluidas = comando.executeUpdate();
@@ -122,65 +122,6 @@ public class DAOPaciente {
             }
         }
         return null; // Retorna null se não encontrar o paciente
-    }
-
-    // 🔹 Método para buscar paciente por ID
-    public static Paciente buscarPorId(int idPaciente) throws SQLException {
-        Paciente paciente = null;
-        
-        String sql = "SELECT * FROM paciente WHERE id = ?";
-    
-        try (PreparedStatement comando = conexao.prepareStatement(sql)) {
-            comando.setInt(1, idPaciente);
-            ResultSet resultado = comando.executeQuery();
-
-            if (resultado.next()) {
-                
-            // Converter sexo para ENUM
-            String sexoString = resultado.getString("sexo");
-            Sexo sexo = Sexo.valueOf(sexoString.toUpperCase());
-                
-                paciente = new Paciente(
-                    resultado.getInt("id"), 
-                    resultado.getString("nome"), 
-                    resultado.getString("cpf"), 
-                    sexo,
-                    resultado.getDate("data_nascimento").toLocalDate());
-                
-                return paciente;
-            }
-        }
-        return null; // Retorna null se não encontrar o paciente
-    }
-
-    // 🔹 Método para buscar todos os pacientes
-    public static List<Paciente> buscarTodos() throws SQLException {
-        String sql = "SELECT * FROM paciente";
-        List<Paciente> lista = new ArrayList<Paciente>();
-
-        try (PreparedStatement comando = conexao.prepareStatement(sql);
-            ResultSet resultado = comando.executeQuery()) {
-
-            while (resultado.next()) {
-                
-                // Converter sexo para ENUM
-                String sexoString = resultado.getString("sexo");
-                Sexo sexo = Sexo.valueOf(sexoString.toUpperCase());
-                
-                //cria um novo objeto Vacina_Dose
-                Paciente novopaciente = new Paciente(
-                    resultado.getInt("id"), 
-                    resultado.getString("nome"), 
-                    resultado.getString("cpf"), 
-                    sexo,
-                    resultado.getDate("data_nascimento").toLocalDate());
-                
-                //adiciona o objeto usuario no array list
-                lista.add(novopaciente);
-            }
-        }
-        
-        return lista;
     }
 }
     

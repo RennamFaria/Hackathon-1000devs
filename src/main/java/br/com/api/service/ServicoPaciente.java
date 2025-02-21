@@ -139,7 +139,7 @@ public class ServicoPaciente {
 
 
                 // Busca o paciente no banco de dados
-                Paciente paciente = DAOPaciente.buscarPorId(id);
+                Paciente paciente = DAOPaciente.;
 
                 if (paciente != null) {
                     response.status(200); // 200 OK
@@ -176,4 +176,3 @@ public class ServicoPaciente {
 
 
     
-
