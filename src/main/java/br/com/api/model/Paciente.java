@@ -1,5 +1,6 @@
 package br.com.api.model;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Paciente {
     private int id;
@@ -23,7 +24,7 @@ public class Paciente {
         this.data_nascimento = data_nascimento; 
     }
 
-    public static enum Sexo { 
+    public enum Sexo { 
         M, F; 
     }
 
@@ -59,13 +60,13 @@ public class Paciente {
         this.sexo = sexo;
     }
 
-    public LocalDate getdata_nascimento(){
-        return data_nascimento;
-        
+    public String getdata_nascimento() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return data_nascimento.format(formatter);
     }
 
     public void setdata_nascimento (LocalDate data_nascimento){
         this.data_nascimento = data_nascimento; 
     }
-     
+
 }

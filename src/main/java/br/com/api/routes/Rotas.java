@@ -23,7 +23,8 @@ public class Rotas {
         Spark.post("/paciente/cadastrar", ServicoPaciente.cadastrarPaciente());
         Spark.delete("/paciente/excluir/:id", ServicoPaciente.excluirPaciente());
         Spark.put("/paciente/atualizar/:id", ServicoPaciente.atualizarPaciente());
-
+        Spark.get("/paciente/consultar", ServicoPaciente.consultarTodosPacientes());
+        Spark.get("/paciente/consultar/:id", ServicoPaciente.consultarPacientePorId());
 
         //VACINA
         Spark.get("/vacinas/consultar", ServicoVacina.consultarTodasVacinas());
