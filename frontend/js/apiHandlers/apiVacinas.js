@@ -1,4 +1,3 @@
-// api-base.js
 const BASE_URL = 'http://localhost:8080';
 
 // Funções base para API
@@ -59,26 +58,4 @@ export const apiVacina = {
         }
     },
 
-};
-
-// Funções utilitárias
-export const utils = {
-    obterParametroUrl(parametro) {
-        const url = new URL(window.location.href);
-        return url.searchParams.get(parametro);
-    },
-
-    // funcao generica para buscar os dados do formulario idependente do tipo do formulario
-    getFormData(form) {
-        const formData = new FormData(form);
-        const data = {};
-        for (let [key, value] of formData.entries()) {
-            data[key] = value;
-        }
-        return data;
-    },
-
-    mostrarMensagem(tipo, mensagem) {
-        alert(`${tipo}: ${mensagem}`);
-    }
 };

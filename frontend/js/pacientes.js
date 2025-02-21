@@ -6,16 +6,7 @@ export const pacientesModule = {
     async carregarPacientes() {
         const ENDPOINT = 'consultar';
 
-        try {
-            const pacientes = await apiBase.listar(TABLE, ENDPOINT);
-            this.renderizarTabela(pacientes);
-        } catch (error) {
-            utils.mostrarMensagem('Erro', error.message);
-        }
-    },
-
-    async carregarPacientesPorId() {        // terminar
-        const ENDPOINT = 'consultar/${id}';
+        console.log("testando");
 
         try {
             const pacientes = await apiBase.listar(TABLE, ENDPOINT);
@@ -40,14 +31,13 @@ export const pacientesModule = {
         }
     },
 
-    async carregarPaciente() {
+    async carregarPacientePorId() {
         const ENDPOINT = 'consultar';
 
-        const id = utils.obterParametroUrl('id');
         if (!id) return;
 
         try {
-            const paciente = await apiBase.buscarPorId(TABLE, ENDPOINT, id);
+            const paciente = await apiBase.carregarPacientes(TABLE, ENDPOINT, id);
             this.preencherFormulario(paciente);
         } catch (error) {
             utils.mostrarMensagem('Erro', error.message);
@@ -55,7 +45,7 @@ export const pacientesModule = {
     },
 
     async atualizarPaciente(event) {
-        const ENDPOINT = 'cadastrar';       //atualizar
+        const ENDPOINT = 'cadastrar';
 
         event.preventDefault();
         const id = document.getElementById('id').value;
@@ -114,13 +104,13 @@ export const pacientesModule = {
 // Inicialização
 document.addEventListener('DOMContentLoaded', () => {
     // Verifica se está na página de listagem
-    if (document.getElementById('dadosUsuarios')) {
+    if (document.getElementById('resultTable-paciente')) {
         pacientesModule.carregarPacientes();
     }
 
     // Verifica se está na página de edição
     if (utils.obterParametroUrl('id')) {
-        pacientesModule.carregarPaciente();
+        pacientesModule.carregarPacientePorId(id);
     }
 
     // Configura o formulário
