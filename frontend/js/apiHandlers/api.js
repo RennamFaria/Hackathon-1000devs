@@ -103,5 +103,20 @@ export const utils = {
 
     mostrarMensagem(tipo, mensagem) {
         alert(`${tipo}: ${mensagem}`);
+    },
+
+    formatarData(data) {
+        try {
+            if (!data || data === '') return '---';
+            const date = new Date(data);
+            return date.toLocaleDateString('pt-BR', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+            });
+        } catch (error) {
+            console.error('Erro ao formatar data:', error);
+            return '---';
+        }
     }
 };

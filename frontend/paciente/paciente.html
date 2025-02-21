@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pacientes</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" defer>
     <style>
         .table-container {
             max-width: 9000px;
@@ -30,31 +30,47 @@
     <div class="container table-container">
         <h2 class="mb-3">Pacientes</h2>
 
-        <!-- Barra de Pesquisa + Botão Cadastro -->
         <div class="d-flex mb-3">
-            <a href="./cadastrar/cadastrar.html" class="btn btn-custom me-2">Cadastrar Paciente</a>
-            <input type="text" id="search" class="form-control" placeholder="Pesquisar paciente...">
+            <form id="searchForm">
+                <input type="text" id="search-bar" class="form-control" placeholder="Pesquisar imunização...">
+
+                <div id="additional-search-container"></div>
+
+                <button type="button" class="btn btn-primary" id="searchButton">Procurar</button>
+                <a href="./cadastrar/cadastrar.html" type="button" class="btn btn-primary" id="cadastrarButton">Cadastrar</a>
+            </form>
         </div>
 
         <div class="table-responsive">
             <table class="table table-bordered">
                 <thead class="table-dark">
                     <tr>
+                        <th>ID</th>
                         <th>Nome</th>
                         <th>CPF</th>
                         <th>Sexo</th>
-                        <th>Data de Nascimento</th>
-                        <th>Ações</th>
+                        <th>Data Nascimento</th>
                     </tr>
                 </thead>
-                <tbody id="patientTable">
-                    <!-- Os dados serão carregados dinamicamente -->
+                <tbody id="resultTable-paciente">
+                   <!-- Aqui aonde sera inseriddo o modulo -->
                 </tbody>
             </table>
         </div>
     </div>
 
-    <script src="/frontend/js/pacientes.js"></script>
+    <img src="https://cdn.7tv.app/emote/01G7HBWGZ8000DJJQKZ99T0A2Y/4x.avif">
+    <img src="https://cdn.7tv.app/emote/01F6TDN2V0000E7TRSM97WER0J/4x.avif">
+    <img src="https://cdn.7tv.app/emote/01GRKPZCJ80004NWC6YE8DQMV2/3x.avif">
+    <img src="https://cdn.7tv.app/emote/01FY83EHM0000B3B1F2P48BYV6/4x.avif">
+    <img src="https://cdn.7tv.app/emote/01J5RF4XP0000B471S6R4HD8VZ/4x.avif">
+    <img src="https://cdn.7tv.app/emote/01GYQB78R800087CVEGR4KSP6M/4x.avif">
+    <img src="https://cdn.7tv.app/emote/01HV5N2ME00007838DQ0AM89KP/4x.avif">
+    <img src="https://cdn.7tv.app/emote/01GXY8F948000CAGQJD077GE47/4x.avif">
+    <img src="https://cdn.7tv.app/emote/01GY2W3KV0000CX7G8QSR9TF01/4x.avif">
+    <img src="https://cdn.7tv.app/emote/01G66F5WM800068XXW2KX61JN9/4x.avif">
+
+    <script type="module" src="../js/pacientes.js" defer></script>
 
 </body>
 

@@ -102,18 +102,12 @@ document.addEventListener('DOMContentLoaded', () => {
             
             switch(selectedValue) {
                 case 'faixaEtaria':
-                    console.log("Faixa etaria");
-                    console.log(valueSearchBox);
                     vacinasModule.carregarVacinasPorFaixaEtaria(valueSearchBox);
                     break;
                 case 'idade':
-                    console.log("idade");
-                    console.log(valueSearchBox);
                     vacinasModule.carregarVacinasPorIdade(valueSearchBox);
                     break;
                 case 'naoAplicavel':
-                    console.log("nao aplicavel");
-                    console.log(valueSearchBox);
                     vacinasModule.carregarVacinasNaoAplicaveis(valueSearchBox);
                     break;
                 default:
