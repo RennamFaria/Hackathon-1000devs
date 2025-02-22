@@ -42,7 +42,7 @@ export const imunizacoesModule = {
             utils.mostrarMensagem('Sucesso', 'Imunizacao cadastrado com sucesso!');
             
             setTimeout(() => {
-                window.location.href = '../../imunizacao/imunizacao.html';
+                window.location.href = '../imunizacao.html';
             }, 1500);
         } catch (error) {
             utils.mostrarMensagem('Erro', error.message);
@@ -93,7 +93,7 @@ export const imunizacoesModule = {
             utils.mostrarMensagem('Sucesso', 'Paciente atualizado com sucesso!');
 
             setTimeout(() => {
-                window.location.href = '../../paciente/paciente.html';
+                window.location.href = '../imunizacao.html';
             }, 1500);
         } catch (error) {
             utils.mostrarMensagem('Erro', error.message);
@@ -136,7 +136,10 @@ export const imunizacoesModule = {
         try {
             await apiBase.excluir(TABLE, ENDPOINT, id);
             utils.mostrarMensagem('Sucesso', 'Imunizacao excluído com sucesso!');
-            await this.carregarImunizacoes();
+
+            setTimeout(() => {
+                window.location.href = '../../paciente/paciente.html';
+            }, 1500);
         } catch (error) {
             utils.mostrarMensagem('Erro', error.message);
         }
@@ -176,10 +179,14 @@ export const imunizacoesModule = {
             'resultTable-imunizacao'
         );
 
+        const hrefEditar = window.location.href.includes('porPaciente') ? 
+        '../atualizar/atualizar.html' :
+        './atualizar/atualizar.html';
+
         const imunizacoesArray = Array.isArray(imunizacoes) ? imunizacoes : [imunizacoes];
 
         tbody.innerHTML = imunizacoesArray.map(imunizacao => `
-            <tr class = "border border-2 border-dark rounded">
+            <tr class = "border border-2 border-dark rounded table-primary">
                 <td>${imunizacao.idImunizacao && imunizacao.idImunizacao !== '' ? imunizacao.idImunizacao : '---'}</td>
                 <td>${imunizacao.nomePaciente && imunizacao.nomePaciente !== '' ? imunizacao.nomePaciente : 'Não informado'}</td>
                 <td>${imunizacao.nomeVacina && imunizacao.nomeVacina !== '' ? imunizacao.nomeVacina : 'Não especificada'}</td>
@@ -190,10 +197,10 @@ export const imunizacoesModule = {
                 <td>${imunizacao.localAplicacao && imunizacao.localAplicacao !== '' ? imunizacao.localAplicacao : 'Local não informado'}</td>
                 <td>${imunizacao.profissionalAplicador && imunizacao.profissionalAplicador !== '' ? imunizacao.profissionalAplicador : 'Não informado'}</td>
                 <td>
-                    <a href="../imunizacao/atualizar/atualizar.html?id=${imunizacao.idImunizacao}">
+                    <a href="${hrefEditar}?id=${imunizacao.idImunizacao}">
                             <button class="w3-button w3-green w3-round">Editar</button>
                     </a>
-                    <button class="w3-button w3-red w3-round excluir-btn" s
+                    <button class="w3-button w3-red w3-round excluir-btn"
                         data-id="${imunizacao.idImunizacao}">
                         Excluir
                     </button>
@@ -235,7 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('resultTable-imunizacaoPaciente')) {
         const urlParams = new URLSearchParams(window.location.search);
         const id = urlParams.get('id');
-        const deleteAllButton = document.getElementById('searchButton');
+        const deleteAllButton = document.getElementById('deleteAllPaciente');
 
         if (id) {
             imunizacoesModule.carregarImunizacaoPorIdPaciente(id);

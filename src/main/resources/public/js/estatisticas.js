@@ -68,7 +68,7 @@ export const estatisticasModule = {
             const vacinasAcimaIdade = await this.qntVacinasAcimaIdade(meses);
             const vacinasNaoAplicavel = await this.qntVacinasNaoAplicavel(id);
     
-            console.log(vacinasPorPaciente);
+            // console.log(vacinasPorPaciente);
 
             return { 
                 vacinasPorPaciente, 

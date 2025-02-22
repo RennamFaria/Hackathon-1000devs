@@ -37,7 +37,7 @@ export const pacientesModule = {
             utils.mostrarMensagem('Sucesso', 'Paciente cadastrado com sucesso!');
             
             setTimeout(() => {
-                window.location.href = '../../paciente/paciente.html';
+                window.location.href = '../paciente.html';
             }, 1500);
         } catch (error) {
             utils.mostrarMensagem('Erro', error.message);
@@ -80,7 +80,7 @@ export const pacientesModule = {
             utils.mostrarMensagem('Sucesso', 'Paciente atualizado com sucesso!');
 
             setTimeout(() => {
-                window.location.href = '../../paciente/paciente.html';
+                window.location.href = '../paciente.html';
             }, 1500);
         } catch (error) {
             utils.mostrarMensagem('Erro', error.message);
@@ -123,6 +123,11 @@ export const pacientesModule = {
                                         (today.getMonth() - birthDate.getMonth());
     
                         const stats = await estatisticasModule.carregarTodasEstatisticas(paciente.id, ageInMonths);
+                        console.log(stats.vacinasPorPaciente);
+                        console.log(stats.vacinasProxMes);
+                        console.log(stats.vacinasAtrasadas);
+                        console.log(stats.vacinasAcimaIdade);
+                        console.log(stats.vacinasNaoAplicavel);
                         return { paciente, stats };
                     } catch (err) {
                         console.error(`Erro ao processar paciente ${paciente?.id}:`, err);
@@ -141,8 +146,6 @@ export const pacientesModule = {
 
     renderizarTabela(results) {
         const tbody = document.getElementById('resultTable-paciente');
-        
-        console.log(results);
 
         tbody.innerHTML = results.map(({ paciente, stats }) => `
             <tr class = "border border-2 border-dark rounded">
@@ -165,13 +168,13 @@ export const pacientesModule = {
                     </td>
                 </tr>
                 <tr class="table-secondary">
-                    <td>Vacinas Tomadas: ${stats?.vacinasPorPaciente?.quantidade}</td>
-                    <td>Próximo Mês: ${stats?.vacinasProxMes?.quantidade}</td>
-                    <td>Atrasadas: ${stats?.vacinasAtrasadas?.quantidade}</td>
-                    <td>Acima da Idade: ${stats?.vacinasAcimaIdade?.quantidade}</td>
-                    <td>Não Aplicáveis: ${stats?.vacinasNaoAplicavel?.quantidade}</td>
-                    <td></td>
-                </tr>
+                    <td>Vacinas Tomadas: ${stats.vacinasPorPaciente || 0}</td>
+                    <td>Próximo Mês: ${stats.vacinasProxMes?.quantidade_vacinas_proximo_mes || 0}</td>
+                    <td>Atrasadas: ${stats.vacinasAtrasadas?.quantidade_vacinas_atrasadas || 0}</td>
+                    <td>Acima da Idade: ${stats.vacinasAcimaIdade?.quantidade_vacinas_acima_idade || 0}</td>
+                    <td>Não Aplicáveis: ${stats.vacinasNaoAplicavel?.quantidade_vacinas_nao_aplicaveis || 0}</td>
+                <td></td>
+            </tr>
             </tr>
         `).join('');
     },
