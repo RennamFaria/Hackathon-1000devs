@@ -20,7 +20,7 @@ public class Rotas {
         //Spark.XXXXX("YYYYYYY", ZZZZZ);
 
         //PACIENTE
-        Spark.post("/paciente/cadastrar", ServicoPaciente.cadastrarPaciente());
+        Spark.post("/paciente/inserir", ServicoPaciente.cadastrarPaciente());
         Spark.delete("/paciente/excluir/:id", ServicoPaciente.excluirPaciente());
         Spark.put("/paciente/atualizar/:id", ServicoPaciente.atualizarPaciente());
         Spark.get("/paciente/consultar", ServicoPaciente.consultarTodosPacientes());

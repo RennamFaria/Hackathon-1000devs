@@ -126,7 +126,6 @@ public class ServicoPaciente {
             };
         };
 
-
             // 🔹 Método para buscar paciente por ID
     public static Route consultarPacientePorId() {
         return (Request request, Response response) -> {
@@ -139,7 +138,7 @@ public class ServicoPaciente {
 
 
                 // Busca o paciente no banco de dados
-                Paciente paciente = DAOPaciente.;
+                Paciente paciente = DAOPaciente.buscarPorId(id);
 
                 if (paciente != null) {
                     response.status(200); // 200 OK
