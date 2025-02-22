@@ -8,6 +8,5 @@ Desafio proposto para o hackaton final do programa 1000devs, em conjunto com out
   - Cauã Emanuel
   - June Castello
   - Magno Kelly
-  - Maisa Bispo
   - Mariana Bingi
   - Rennam Faria
