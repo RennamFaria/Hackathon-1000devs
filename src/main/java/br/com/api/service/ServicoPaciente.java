@@ -13,13 +13,12 @@ import spark.Route;
 
 public class ServicoPaciente {
      // Método para lidar com a rota de adicionar paciente
+
     public static Route cadastrarPaciente() {
         return new Route() {
             @Override
             public Object handle(Request request, Response response) throws Exception 
             {
-                //extrai os parametros do boddy da requisicao http  
-                //o metódo queryParams recebe apenas string, então o que não for String tem que ser convertido 
                 String nome = request.queryParams("nome");
                 String cpf = request.queryParams("cpf");
                 String sexoStr = request.queryParams("sexo"); // Extrai o valor como String
@@ -31,22 +30,11 @@ public class ServicoPaciente {
                 Paciente paciente = new Paciente(nome, cpf, sexo, data_nascimento);
 
                 try {
-                    //passa o objeto para o DAO realizar a insercao no banco de dados
-                    //e recebe o id gerado no banco de dados
                     int idPaciente = DAOPaciente.adicionarPaciente(paciente);
                     
                     //defini o status code do httpd
                     response.status(201); // 201 Created
-                    
-                    //possiveis opcoes Classe Anonima, HashMap, Classe interna, 
-                    // Object mensagem = new Object() {
-                    //     public String message = "Usuário criado com o ID " + idUsuario + " com sucesso." ;
-                    // };
-                    
-                    // //retorna um array list vazio no formato json
-                    // return converteJson.writeValueAsString(mensagem);
-                    
-                    //retorna o id criado e retorna via http response
+
                     return "{\"message\": \"Usuário criado com o ID " + idPaciente + " com sucesso.\"}" ;
                         
                 } catch (Exception e) {

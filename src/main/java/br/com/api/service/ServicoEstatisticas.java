@@ -18,7 +18,7 @@ public class ServicoEstatisticas {
                     int qtdeVacinas = DAO.getQuantidadeVacinasAplicadas(pacienteId);
 
                     response.status(200); // 200 OK
-                    return "{\"quantidade_vacinas_aplicadas\": " + qtdeVacinas + "}";
+                    return qtdeVacinas;
                 } catch (NumberFormatException e) {
                     response.status(400); // 400 Bad Request
                     return "{\"message\": \"ID do paciente inválido.\"}";

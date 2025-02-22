@@ -1,35 +1,147 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Cadastro Nova Imunização</title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        body {
+            background-color: #f4f4f4;
+        }
+
+        /* Ajuste do container principal */
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Ajuste dos inputs */
+        .w3-input {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        /* Botão cadastrar */
+        .btn-cadastrar {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-cadastrar:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
-<!-- TEMPORARIO TEMPORARIO TEMPORARIO -->
-    <body>
-        <div id="menu"></div>
-        <div class="w3-container w3-light-grey">
-            <h2>Cadastro de Imunizações</h2>
-        </div>
-        
-        <form method="post" onsubmit="realizarCadastro(event)" class="w3-container w3-card-4 w3-light-white w3-padding-16 w3-margin">
-          <div id="corpoFormulario"></div>       
-          
-             <!-- Botão de Enviar -->
-            <div class="w3-row w3-margin-top">
-                <div class="w3-col w3-container m2 l2">
-                    <button class="w3-button w3-green w3-margin-top w3-round" type="submit">Cadastrar</button>
+
+<body>
+
+    <!-- Barra de Navegação -->
+    <div class="w3-bar w3-black">
+        <a href="#" class="w3-bar-item w3-button w3-green w3-mobile">Home</a>
+        <a href="#" class="w3-bar-item w3-button w3-black w3-mobile">Pacientes</a>
+        <a href="#" class="w3-bar-item w3-button w3-black w3-mobile">Imunizações</a>
+        <a href="#" class="w3-bar-item w3-button w3-black w3-mobile">Vacinas</a>
+
+    </div>
+
+    <!-- Conteúdo -->
+    <div class="container w3-card">
+        <h2 class="w3-text-black">Cadastro Nova Imunização</h2>
+        <form class="w3-container" id="form-cadastro-imunizacao">
+            <div class="w3-row-padding">
+                <div class="w3-half">
+                    <label>ID do Paciente:</label>
+                    <input class="w3-input w3-border" 
+                           type="text" 
+                           name="id_paciente" 
+                           id="id_paciente"
+                           placeholder="Digite o ID do Paciente" 
+                           required>
+                </div>
+                <div class="w3-half">
+                    <label>ID da Dose:</label>
+                    <input class="w3-input w3-border"   
+                           type="text" 
+                           name="id_dose" 
+                           id="id_dose"
+                           placeholder="Digite o ID da dose" 
+                           required>
                 </div>
             </div>
-        </form>
+        
+            <div class="w3-row-padding">
+                <div class="w3-half">
+                    <label>Data Da Aplicação:</label>
+                    <input class="w3-input w3-border" 
+                           type="date" 
+                           name="data_aplicacao" 
+                           id="data_aplicacao"
+                           required>
+                </div>
+                <div class="w3-half">
+                    <label>Fabricante:</label>
+                    <input class="w3-input w3-border"   
+                           type="text" 
+                           name="fabricante" 
+                           id="fabricante"
+                           placeholder="Digite o nome do fabricante" 
+                           required>
+                </div>
+            </div>
 
-        <script src="/public/js/include.js"></script>
-        <script src="/public/js/aluno.js"></script>
-        <script>
-            // Chamada da função para carregar o corpo do formulario
-            loadHtml("/public/componentes/aluno.html", "corpoFormulario");
-        </script>
-  </body>
+            <div class="w3-row-padding">
+                <div class="w3-half">
+                    <label>Lote:</label>
+                    <input class="w3-input w3-border"   
+                           type="text" 
+                           name="lote" 
+                           id="lote"
+                           placeholder="Digite o Lote" 
+                           required>
+                </div>
+                <div class="w3-half">
+                    <label>Local de Aplicação:</label>
+                    <input class="w3-input w3-border"   
+                           type="text" 
+                           name="local_aplicacao"       
+                           id="local_aplicacao"
+                           placeholder="Digite o nome do Local de Aplicação" 
+                           required>
+                </div>
+            </div>
+
+            <div class="w3-row-padding">
+                <div class="w3-half">
+                    <label>Profissional aplicador:</label>
+                    <input class="w3-input w3-border"   
+                           type="text" 
+                           name="profissional_aplicador"       
+                           id="profissional_aplicador"
+                           placeholder="Digite o nome do Aplicador" 
+                           required>
+                </div>
+            </div>
+        
+            <div class="w3-padding">
+                <button type="submit" class="w3-button w3-green" id="btn-cadastrar">Cadastrar</button>
+            </div>
+        </form>
+    </div>
+
+    <script type="module" src="../../js/imunizacoes.js" defer></script>
+
+</body>
+
 </html>
