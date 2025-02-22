@@ -15,17 +15,35 @@ export const imunizacoesModule = {
         }
     },
 
-    // Ainda falta tela
     async cadastrarImunizacao(event) {
         const ENDPOINT = 'inserir';
-
         event.preventDefault();
+        
         try {
-            const dados = utils.getFormData(event.target);
-            await apiBase.cadastrar(TABLE, ENDPOINT, dados);
+            const idPaciente = document.getElementById('id_paciente').value;
+            const idDose = document.getElementById('id_dose').value;
+            const dataAplicacao = document.getElementById('data_aplicacao').value;
+            const fabricante = document.getElementById('fabricante').value;
+            const lote = document.getElementById('lote').value;
+            const localAplicacao = document.getElementById('local_aplicacao').value;
+            const profissionalAplicador = document.getElementById('profissional_aplicador').value;
+    
+            // Converte dados do forms para URLSearchParams (formEncode)
+            const dadosFormData = new URLSearchParams();
+            dadosFormData.append('idPaciente', idPaciente);
+            dadosFormData.append('idDose', idDose);
+            dadosFormData.append('dataAplicacao', dataAplicacao);
+            dadosFormData.append('fabricante', fabricante);
+            dadosFormData.append('lote', lote);
+            dadosFormData.append('localAplicacao', localAplicacao);
+            dadosFormData.append('profissionalAplicador', profissionalAplicador);
+
+            await apiBase.cadastrar(TABLE, ENDPOINT, dadosFormData);
             utils.mostrarMensagem('Sucesso', 'Imunizacao cadastrado com sucesso!');
-            event.target.reset();
-            await this.carregarImunizacoes();
+            
+            setTimeout(() => {
+                window.location.href = '../imunizacao.html';
+            }, 1500);
         } catch (error) {
             utils.mostrarMensagem('Erro', error.message);
         }
@@ -46,15 +64,37 @@ export const imunizacoesModule = {
     },
 
     // Ainda falta tela
-    async atualizarImunizacao(event) {
-        const ENDPOINT = 'cadastrar';
-
+    async atualizarImunizacao(id, event) {
+        const ENDPOINT = 'alterar';
         event.preventDefault();
-        const id = document.getElementById('id').value;
+
+        console.log(id);
+
         try {
-            const dados = utils.getFormData(event.target);
-            await apiBase.atualizar(TABLE, ENDPOINT, id, dados);
-            utils.mostrarMensagem('Sucesso', 'Imunizacao atualizado com sucesso!');
+            const idPaciente = document.getElementById('id_paciente').value;
+            const idDose = document.getElementById('id_dose').value;
+            const dataAplicacao = document.getElementById('data_aplicacao').value;
+            const fabricante = document.getElementById('fabricante').value;
+            const lote = document.getElementById('lote').value;
+            const localAplicacao = document.getElementById('local_aplicacao').value;
+            const profissionalAplicador = document.getElementById('profissional_aplicador').value;
+    
+            // Converte dados do forms para URLSearchParams (formEncode)
+            const dadosFormData = new URLSearchParams();
+            dadosFormData.append('idPaciente', idPaciente);
+            dadosFormData.append('idDose', idDose);
+            dadosFormData.append('dataAplicacao', dataAplicacao);
+            dadosFormData.append('fabricante', fabricante);
+            dadosFormData.append('lote', lote);
+            dadosFormData.append('localAplicacao', localAplicacao);
+            dadosFormData.append('profissionalAplicador', profissionalAplicador);
+
+            await apiBase.atualizar(TABLE, ENDPOINT, id, dadosFormData);
+            utils.mostrarMensagem('Sucesso', 'Paciente atualizado com sucesso!');
+
+            setTimeout(() => {
+                window.location.href = '../imunizacao.html';
+            }, 1500);
         } catch (error) {
             utils.mostrarMensagem('Erro', error.message);
         }
@@ -96,7 +136,10 @@ export const imunizacoesModule = {
         try {
             await apiBase.excluir(TABLE, ENDPOINT, id);
             utils.mostrarMensagem('Sucesso', 'Imunizacao excluído com sucesso!');
-            await this.carregarImunizacoes();
+
+            setTimeout(() => {
+                window.location.href = '../../paciente/paciente.html';
+            }, 1500);
         } catch (error) {
             utils.mostrarMensagem('Erro', error.message);
         }
@@ -136,10 +179,14 @@ export const imunizacoesModule = {
             'resultTable-imunizacao'
         );
 
+        const hrefEditar = window.location.href.includes('porPaciente') ? 
+        '../atualizar/atualizar.html' :
+        './atualizar/atualizar.html';
+
         const imunizacoesArray = Array.isArray(imunizacoes) ? imunizacoes : [imunizacoes];
 
         tbody.innerHTML = imunizacoesArray.map(imunizacao => `
-            <tr class = "border border-2 border-dark rounded">
+            <tr class = "border border-2 border-dark rounded table-primary">
                 <td>${imunizacao.idImunizacao && imunizacao.idImunizacao !== '' ? imunizacao.idImunizacao : '---'}</td>
                 <td>${imunizacao.nomePaciente && imunizacao.nomePaciente !== '' ? imunizacao.nomePaciente : 'Não informado'}</td>
                 <td>${imunizacao.nomeVacina && imunizacao.nomeVacina !== '' ? imunizacao.nomeVacina : 'Não especificada'}</td>
@@ -150,10 +197,10 @@ export const imunizacoesModule = {
                 <td>${imunizacao.localAplicacao && imunizacao.localAplicacao !== '' ? imunizacao.localAplicacao : 'Local não informado'}</td>
                 <td>${imunizacao.profissionalAplicador && imunizacao.profissionalAplicador !== '' ? imunizacao.profissionalAplicador : 'Não informado'}</td>
                 <td>
-                    <a href="/frontend/imunizacao/atualizar/atualizar.html?id=${imunizacao.id}">
-                        <button class="w3-button w3-green w3-round">Editar</button>
+                    <a href="${hrefEditar}?id=${imunizacao.idImunizacao}">
+                            <button class="w3-button w3-green w3-round">Editar</button>
                     </a>
-                    <button class="w3-button w3-red w3-round excluir-btn" 
+                    <button class="w3-button w3-red w3-round excluir-btn"
                         data-id="${imunizacao.idImunizacao}">
                         Excluir
                     </button>
@@ -161,22 +208,16 @@ export const imunizacoesModule = {
             </tr>
         `).join('');
     },
-
-    preencherFormulario(imunizacao) {
-        Object.keys(imunizacao).forEach(key => {
-            const input = document.getElementById(key);
-            if (input) input.value = imunizacao[key];
-        });
-    }
 };
 
 // Inicialização
 document.addEventListener('DOMContentLoaded', () => {
     // Executa esse codigo apenas para a pagina Imunizacao e nao ImunizacaoPaciente
+    const searchButton = document.getElementById('searchButton');
+    
     if (document.getElementById('type-search')) {
         const typeSearch = document.getElementById('type-search');
         const additionalSearchContainer = document.getElementById('additional-search-container');
-        const searchButton = document.getElementById('searchButton');
 
         function createDateInputs() {
             return `
@@ -201,7 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('resultTable-imunizacaoPaciente')) {
         const urlParams = new URLSearchParams(window.location.search);
         const id = urlParams.get('id');
-        const deleteAllButton = document.getElementById('searchButton');
+        const deleteAllButton = document.getElementById('deleteAllPaciente');
 
         if (id) {
             imunizacoesModule.carregarImunizacaoPorIdPaciente(id);
@@ -248,13 +289,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Configura o formulário
-    const form = document.querySelector('form');
+    const form = document.getElementById('form-cadastro-imunizacao') || document.getElementById('form-atualizar-imunizacao');
+
     if (form) {
-        form.addEventListener('submit', (e) => {
-            if (utils.obterParametroUrl('id')) {
-                imunizacoesModule.atualizarImunizacao(e);
-            } else {
-                imunizacoesModule.cadastrarImunizacao(e);
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            try {
+                const urlParams = new URLSearchParams(window.location.search);
+                const id = urlParams.get('id');
+                
+                if (id) {
+                    await imunizacoesModule.atualizarImunizacao(id, e);
+                } else {
+                    await imunizacoesModule.cadastrarImunizacao(e);
+                }
+            } catch (error) {
+                utils.mostrarMensagem('Erro', error.message);
             }
         });
     }

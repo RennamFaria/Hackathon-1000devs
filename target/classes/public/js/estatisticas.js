@@ -9,6 +9,7 @@ export const estatisticasModule = {
         
         try {
             const estatisticas = await apiBase.buscarPorId(TABLE, ENDPOINT, id);
+            // console.log(estatisticas);
             return estatisticas;
         } catch (error) {
             utils.mostrarMensagem('Erro', error.message);
@@ -61,12 +62,14 @@ export const estatisticasModule = {
 
     async carregarTodasEstatisticas(id, meses) {
         try {
-            const vacinasPorPaciente = await this.qntVacinasPorPaciente(id) || 0;
-            const vacinasProxMes = await this.qntVacinasAplicaveisProxMes(id) || 0;
-            const vacinasAtrasadas = await this.qntVacinasAtrasadas(id) || 0;
-            const vacinasAcimaIdade = await this.qntVacinasAcimaIdade(meses) || 0;
-            const vacinasNaoAplicavel = await this.qntVacinasNaoAplicavel(id) || 0;
+            const vacinasPorPaciente = await this.qntVacinasPorPaciente(id);
+            const vacinasProxMes = await this.qntVacinasAplicaveisProxMes(id);
+            const vacinasAtrasadas = await this.qntVacinasAtrasadas(id);
+            const vacinasAcimaIdade = await this.qntVacinasAcimaIdade(meses);
+            const vacinasNaoAplicavel = await this.qntVacinasNaoAplicavel(id);
     
+            // console.log(vacinasPorPaciente);
+
             return { 
                 vacinasPorPaciente, 
                 vacinasProxMes, 

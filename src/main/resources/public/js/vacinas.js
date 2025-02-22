@@ -73,7 +73,7 @@ export const vacinasModule = {
         // Imprime valor na tela
         // Se vier vazio ou ''. Será formatado para sair como desejado
         tbody.innerHTML = vacinas.map(vacina => `
-            <tr>
+            <tr class = "border border-2 border-dark rounded table-primary">
                 <td>${vacina.doseId && vacina.doseId !== '' ? vacina.doseId : '---'}</td>
                 <td>${vacina.vacinaNome && vacina.vacinaNome !== '' ? vacina.vacinaNome : '---'}</td>
                 <td>${vacina.doseDescricao && vacina.doseDescricao !== '' ? vacina.doseDescricao : '---'}</td>

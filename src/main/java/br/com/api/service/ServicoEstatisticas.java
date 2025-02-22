@@ -18,7 +18,7 @@ public class ServicoEstatisticas {
                     int qtdeVacinas = DAO.getQuantidadeVacinasAplicadas(pacienteId);
 
                     response.status(200); // 200 OK
-                    return "{\"quantidade_vacinas_aplicadas\": " + qtdeVacinas + "}";
+                    return qtdeVacinas;
                 } catch (NumberFormatException e) {
                     response.status(400); // 400 Bad Request
                     return "{\"message\": \"ID do paciente inválido.\"}";
@@ -40,7 +40,7 @@ public class ServicoEstatisticas {
                     int qtdeVacinas = DAO.getQuantidadeVacinasProximoMes(pacienteId);
 
                     response.status(200); // 200 OK
-                    return "{\"quantidade_vacinas_proximo_mes\": " + qtdeVacinas + "}";
+                    return qtdeVacinas;
                 } catch (NumberFormatException e) {
                     response.status(400); // 400 Bad Request
                     return "{\"message\": \"ID do paciente inválido.\"}";
@@ -61,7 +61,7 @@ public class ServicoEstatisticas {
                     int qtdeVacinas = DAO.getQuantidadeVacinasAtrasadas(pacienteId);
 
                     response.status(200); // 200 OK
-                    return "{\"quantidade_vacinas_atrasadas\": " + qtdeVacinas + "}";
+                    return qtdeVacinas;
                 } catch (NumberFormatException e) {
                     response.status(400); // 400 Bad Request
 
@@ -85,7 +85,7 @@ public class ServicoEstatisticas {
                     int qtdeVacinas = DAO.getQuantidadeVacinasAcimaDeIdade(idade);
 
                     response.status(200); // 200 OK
-                    return "{\"quantidade_vacinas_acima_idade\": " + qtdeVacinas + "}";
+                    return qtdeVacinas;
                 } catch (NumberFormatException e) {
                     response.status(400); // 400 Bad Request
                     return "{\"message\": \"Idade inválida.\"}";
@@ -107,7 +107,7 @@ public class ServicoEstatisticas {
                     int qtdeVacinas = DAO.getQuantidadeVacinasNaoAplicaveis(pacienteId);
 
                     response.status(200); // 200 OK
-                    return "{\"quantidade_vacinas_nao_aplicaveis\": " + qtdeVacinas + "}";
+                    return qtdeVacinas;
                 } catch (NumberFormatException e) {
                     response.status(400); // 400 Bad Request
                     return "{\"message\": \"ID do paciente inválido.\"}";

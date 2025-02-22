@@ -18,14 +18,27 @@ export const pacientesModule = {
     // Ainda falta tela
     async cadastrarPaciente(event) {
         const ENDPOINT = 'inserir';
-
         event.preventDefault();
+        
         try {
-            const dados = utils.getFormData(event.target);
-            await apiBase.cadastrar(TABLE, ENDPOINT, dados);
+            const nome = document.getElementById('nome').value;
+            const cpf = document.getElementById('cpf').value;
+            const sexo = document.getElementById('sexo').value;
+            const data_nascimento = document.getElementById('data_nascimento').value;
+    
+            // Converte dados do forms para URLSearchParams (formEncode)
+            const dadosFormData = new URLSearchParams();
+            dadosFormData.append('nome', nome);
+            dadosFormData.append('cpf', cpf);
+            dadosFormData.append('sexo', sexo);
+            dadosFormData.append('data_nascimento', data_nascimento);
+
+            await apiBase.cadastrar(TABLE, ENDPOINT, dadosFormData);
             utils.mostrarMensagem('Sucesso', 'Paciente cadastrado com sucesso!');
-            event.target.reset();
-            await this.carregarPacientes();
+            
+            setTimeout(() => {
+                window.location.href = '../paciente.html';
+            }, 1500);
         } catch (error) {
             utils.mostrarMensagem('Erro', error.message);
         }
@@ -46,15 +59,29 @@ export const pacientesModule = {
         }
     },
 
-    async atualizarPaciente(event) {
-        const ENDPOINT = 'cadastrar';
+    async atualizarPaciente(id, event) {
+        const ENDPOINT = 'alterar';
 
         event.preventDefault();
-        const id = document.getElementById('id').value;
         try {
-            const dados = utils.getFormData(event.target);
-            await apiBase.atualizar(TABLE, ENDPOINT, id, dados);
+            const nome = document.getElementById('nome').value;
+            const cpf = document.getElementById('cpf').value;
+            const sexo = document.getElementById('sexo').value;
+            const data_nascimento = document.getElementById('data_nascimento').value;
+    
+            // Converte dados do forms para URLSearchParams (formEncode)
+            const dadosFormData = new URLSearchParams();
+            dadosFormData.append('nome', nome);
+            dadosFormData.append('cpf', cpf);
+            dadosFormData.append('sexo', sexo);
+            dadosFormData.append('data_nascimento', data_nascimento);
+
+            await apiBase.atualizar(TABLE, ENDPOINT, id, dadosFormData);
             utils.mostrarMensagem('Sucesso', 'Paciente atualizado com sucesso!');
+
+            setTimeout(() => {
+                window.location.href = '../paciente.html';
+            }, 1500);
         } catch (error) {
             utils.mostrarMensagem('Erro', error.message);
         }
@@ -96,6 +123,11 @@ export const pacientesModule = {
                                         (today.getMonth() - birthDate.getMonth());
     
                         const stats = await estatisticasModule.carregarTodasEstatisticas(paciente.id, ageInMonths);
+                        console.log(stats.vacinasPorPaciente);
+                        console.log(stats.vacinasProxMes);
+                        console.log(stats.vacinasAtrasadas);
+                        console.log(stats.vacinasAcimaIdade);
+                        console.log(stats.vacinasNaoAplicavel);
                         return { paciente, stats };
                     } catch (err) {
                         console.error(`Erro ao processar paciente ${paciente?.id}:`, err);
@@ -111,11 +143,9 @@ export const pacientesModule = {
             utils.mostrarMensagem('Erro', 'Erro ao carregar estatísticas');
         }
     },
-    
+
     renderizarTabela(results) {
         const tbody = document.getElementById('resultTable-paciente');
-        
-        console.log(results);
 
         tbody.innerHTML = results.map(({ paciente, stats }) => `
             <tr class = "border border-2 border-dark rounded">
@@ -138,23 +168,16 @@ export const pacientesModule = {
                     </td>
                 </tr>
                 <tr class="table-secondary">
-                    <td>Vacinas Tomadas: ${stats?.vacinasPorPaciente?.quantidade || 0}</td>
-                    <td>Próximo Mês: ${stats?.vacinasProxMes?.quantidade || 0}</td>
-                    <td>Atrasadas: ${stats?.vacinasAtrasadas?.quantidade || 0}</td>
-                    <td>Acima da Idade: ${stats?.vacinasAcimaIdade?.quantidade || 0}</td>
-                    <td>Não Aplicáveis: ${stats?.vacinasNaoAplicavel?.quantidade || 0}</td>
-                    <td></td>
-                </tr>
+                    <td>Vacinas Tomadas: ${stats.vacinasPorPaciente || 0}</td>
+                    <td>Próximo Mês: ${stats.vacinasProxMes?.quantidade_vacinas_proximo_mes || 0}</td>
+                    <td>Atrasadas: ${stats.vacinasAtrasadas?.quantidade_vacinas_atrasadas || 0}</td>
+                    <td>Acima da Idade: ${stats.vacinasAcimaIdade?.quantidade_vacinas_acima_idade || 0}</td>
+                    <td>Não Aplicáveis: ${stats.vacinasNaoAplicavel?.quantidade_vacinas_nao_aplicaveis || 0}</td>
+                <td></td>
+            </tr>
             </tr>
         `).join('');
     },
-
-    preencherFormulario(paciente) {
-        Object.keys(paciente).forEach(key => {
-            const input = document.getElementById(key);
-            if (input) input.value = paciente[key];
-        });
-    }
 };
 
 // Inicialização
@@ -166,7 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
         pacientesModule.carregarPacientes();
     }
 
-    // Add click event listener
+    // Event listener Click
     if (searchButton) {
         searchButton.addEventListener('click', (e) => {
             e.preventDefault();
@@ -178,17 +201,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Configura o formulário
-    const form = document.querySelector('form');
+    const form = document.getElementById('form-cadastro-paciente') || document.getElementById('form-atualizar-paciente');
+
     if (form) {
-        form.addEventListener('submit', (e) => {
-            if (utils.obterParametroUrl('id')) {
-                pacientesModule.atualizarPaciente(e);
-            } else {
-                pacientesModule.cadastrarPaciente(e);
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            try {
+                const urlParams = new URLSearchParams(window.location.search);
+                const id = urlParams.get('id');
+                
+                if (id) {
+                    await pacientesModule.atualizarPaciente(id, e);
+                } else {
+                    await pacientesModule.cadastrarPaciente(e);
+                }
+            } catch (error) {
+                utils.mostrarMensagem('Erro', error.message);
             }
         });
     }
 
+    // Listener para o botao excluir paciente
     document.addEventListener('click', (e) => {
             if (e.target.matches('.excluir-btn')) {
                 const id = e.target.dataset.id;

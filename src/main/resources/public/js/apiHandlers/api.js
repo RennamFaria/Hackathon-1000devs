@@ -34,17 +34,18 @@ export const apiBase = {
     // POST
     async cadastrar(table, endpoint, dados) {
         try {
+
             const response = await fetch(`${BASE_URL}/${table}/${endpoint}`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(dados)
-            });
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: dados
+            }); 
             if (!response.ok) {
-                throw new Error(`Erro ao cadastrar ${table}/${endpoint}: ${response.statusText}`);
+                throw new Error(`Erro ao cadastrar ${endpoint}: ${response.statusText}`);
             }
             return await response.json();
         } catch (error) {
-            console.error(`Erro ao cadastrar ${table}/${endpoint}:`, error);
+            console.error(`Erro ao cadastrar ${endpoint}:`, error);
             throw error;
         }
     },
@@ -54,8 +55,8 @@ export const apiBase = {
         try {
             const response = await fetch(`${BASE_URL}/${table}/${endpoint}/${id}`, {
                 method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(dados)
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: dados
             });
             if (!response.ok) {
                 throw new Error(`Erro ao atualizar ${table}/${endpoint}: ${response.statusText}`);

@@ -72,7 +72,6 @@ public class ServicoImunizacao {
                     String lote = request.queryParams("lote");
                     String localAplicacao = request.queryParams("localAplicacao");
                     String profissionalAplicador = request.queryParams("profissionalAplicador");
-    
                     //cria o objeto usuario na memoria
                     Imunizacao imunizacao = new Imunizacao(idImunizacao, idPaciente, idDose, dataAplicacao, fabricante, lote, localAplicacao, profissionalAplicador);
     
