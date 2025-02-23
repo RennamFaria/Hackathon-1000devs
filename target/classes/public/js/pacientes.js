@@ -123,11 +123,7 @@ export const pacientesModule = {
                                         (today.getMonth() - birthDate.getMonth());
     
                         const stats = await estatisticasModule.carregarTodasEstatisticas(paciente.id, ageInMonths);
-                        console.log(stats.vacinasPorPaciente);
-                        console.log(stats.vacinasProxMes);
-                        console.log(stats.vacinasAtrasadas);
-                        console.log(stats.vacinasAcimaIdade);
-                        console.log(stats.vacinasNaoAplicavel);
+                        console.log(stats);
                         return { paciente, stats };
                     } catch (err) {
                         console.error(`Erro ao processar paciente ${paciente?.id}:`, err);
@@ -169,10 +165,10 @@ export const pacientesModule = {
                 </tr>
                 <tr class="table-secondary">
                     <td>Vacinas Tomadas: ${stats.vacinasPorPaciente || 0}</td>
-                    <td>Próximo Mês: ${stats.vacinasProxMes?.quantidade_vacinas_proximo_mes || 0}</td>
-                    <td>Atrasadas: ${stats.vacinasAtrasadas?.quantidade_vacinas_atrasadas || 0}</td>
-                    <td>Acima da Idade: ${stats.vacinasAcimaIdade?.quantidade_vacinas_acima_idade || 0}</td>
-                    <td>Não Aplicáveis: ${stats.vacinasNaoAplicavel?.quantidade_vacinas_nao_aplicaveis || 0}</td>
+                    <td>Vacinas p/ Próximo Mês: ${stats.vacinasProxMes || 0}</td>
+                    <td>Vacinas Atrasadas: ${stats.vacinasAtrasadas || 0}</td>
+                    <td>Vacinas acima da Idade: ${stats.vacinasAcimaIdade || 0}</td>
+                    <td>Vacinas Não Aplicáveis: ${stats.vacinasNaoAplicavel || 0}</td>
                 <td></td>
             </tr>
             </tr>
