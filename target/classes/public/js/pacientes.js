@@ -96,6 +96,9 @@ export const pacientesModule = {
             await apiBase.excluir(TABLE, ENDPOINT, id);
             utils.mostrarMensagem('Sucesso', 'Paciente excluído com sucesso!');
             await this.carregarPacientesEStatisticas();
+            setTimeout(() => {
+                window.location.href = './paciente.html';
+            }, 1500);
         } catch (error) {
             utils.mostrarMensagem('Erro', error.message);
         }
